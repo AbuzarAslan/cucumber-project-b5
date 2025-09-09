@@ -7,16 +7,22 @@ import org.openqa.selenium.support.PageFactory;
 
 public class GoogleSearchPage {
 
-    public GoogleSearchPage(){
-        PageFactory.initElements(Driver.getDriver(), this);
+
+    public  GoogleSearchPage() {
+        PageFactory.initElements(Driver.getDriver(),this);
+
+
+
     }
 
     @FindBy (name = "q")
     public WebElement searchBox;
 
-
     @FindBy (xpath = "//input[@id='gbqfbb']//preceding-sibling::input")
     public WebElement searchButton;
+
+    @FindBy (xpath = "//div[@class='wvKXQ']")
+    public WebElement capital;
 
 
 }
