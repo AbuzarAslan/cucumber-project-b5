@@ -22,22 +22,24 @@ public class LoginPage {
     public WebElement loginButton;
 
     /**
-     * Login to Docuport
+     * Logins to docuport
      * @param username
      * @param password
      */
-    public void login (String username, String password) throws InterruptedException {
+
+    public void login(String username, String password) throws InterruptedException {
         BrowserUtils.waitForClickable(loginButton, 10);
         userNameInput.clear();
         userNameInput.sendKeys(username);
         passwordInput.clear();
         passwordInput.sendKeys(password);
+        loginButton.click();
 
         Thread.sleep(5000);
-//        if(BrowserUtils.waitForVisibility(loginButton,10).isDisplayed()) {
+//        if (BrowserUtils.waitForVisibility(loginButton, 10).isDisplayed()) {
 //            loginButton.click();
-//
 //        }
+
 
     }
 

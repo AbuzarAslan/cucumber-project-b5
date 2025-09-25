@@ -1,6 +1,5 @@
 package io.loop.utilities;
 
-
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +10,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
-
 public class BrowserUtils {
 
     public static Scenario myScenario;
@@ -19,8 +17,10 @@ public class BrowserUtils {
 
     /**
      * takes screenshot
-     * @author abuza
+     * @author BS
      */
+
+
     public static void takeScreenshot(){
         try{
             myScenario.log("Current url is: " + Driver.getDriver().getCurrentUrl());
@@ -31,30 +31,31 @@ public class BrowserUtils {
         }
     }
 
-
     /**
-     * * validate if the driver switched to the expected url or title
+     * validate if the driver switched to the expected url or title
+     *
      * @param driver
      * @param expectedUrl
      * @param expectedTitle
-     * @author abuza
+     * @author SB
      * implements assertion
      */
-    public static void switchWindowAndValidate(WebDriver driver, String expectedUrl, String expectedTitle) {
+
+
+    public static void switchWindowandvalidate(WebDriver driver, String expectedUrl, String expectedTitle) {
         // to lowercase the params in order to avoid miss type
+
         expectedTitle = expectedTitle.toLowerCase();
         expectedUrl = expectedUrl.toLowerCase();
 
-        // get all window handles, switch one by one and each time check if the url matches expected to stop
-        // var windowHandles = driver.getWindowHandles();
         Set<String> windowHandles = driver.getWindowHandles();
         for (String each : windowHandles) {
             driver.switchTo().window(each);
             if (driver.getCurrentUrl().toLowerCase().contains(expectedUrl)) {
                 break;
+
             }
         }
-        // after stopping on expected url, validate the title
         assertTrue(driver.getTitle().toLowerCase().contains(expectedTitle));
 
 
@@ -62,15 +63,17 @@ public class BrowserUtils {
 
     /**
      * @param driver
-     * @param targetTitle
-     * @author NSH
+     * @param targetTitle author SB
      */
+
     public static void switchToWindow(WebDriver driver, String targetTitle) {
         String origin = driver.getWindowHandle();
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
             if (driver.getTitle().contains(targetTitle)) {
                 return;
+
+
             }
         }
         driver.switchTo().window(origin);
@@ -94,7 +97,7 @@ public class BrowserUtils {
      * @param element
      * @param timeout
      * @return element
-     * @author nsh
+     * @author SB
      */
     public static WebElement waitForClickable(WebElement element, int timeout) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
@@ -117,12 +120,11 @@ public class BrowserUtils {
      * waits for provided element to be visible on the page
      *
      * @param element
-     * @param timeout
+     * @param timeaout
      * @author nsh
      */
-    public static WebElement waitForVisibility(WebElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
+    public static WebElement waitForVisibility(WebElement element, int timeaout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeaout));
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
-
 }
