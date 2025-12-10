@@ -16,5 +16,6 @@ Feature: Docuport Sample Scenario
     And user inserts "tax document" to "Document name" field on "Received Doc" page
     And user clicks "My uploads" button on "Left Navigate" page
     And user clicks "Upload Documents" button on "My uploads" page
-    And user clicks "Upload file" button on "My uploads" page
+    #if sending to input from html works you do not need below step
+    #And user clicks "Upload file" button on "My uploads" page   (SampleDocuportStepDefs--- bura baxirsan)
     And user uploads a document

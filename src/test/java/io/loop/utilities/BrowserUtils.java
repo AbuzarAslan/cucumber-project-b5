@@ -2,6 +2,7 @@ package io.loop.utilities;
 
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -9,7 +10,10 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
 
@@ -192,4 +196,105 @@ public class BrowserUtils {
         robot.keyRelease(KeyEvent.VK_ENTER);
 
     }
+
+    public static void uploadFileUsingAppleScript(String filePath) throws Exception {
+        String script = "tell application \"System Events\"\n"
+                + "delay 1\n"
+                + "keystroke \"G\" using {command down, shift down}\n"
+                + "delay 1\n"
+                + "keystroke \"" + filePath + "\"\n"
+                + "keystroke return\n"
+                + "delay 1\n"
+                + "keystroke return\n"
+                + "end tell";
+
+        String[] command = { "osascript", "-e", script };
+        Runtime.getRuntime().exec(command);
+    }
+
+    /**
+     * Moves the mouse to given element
+     * @param element to hover over
+     * @author SB
+     *
+     */
+
+    public static void hover (WebElement element) {
+        Actions actions = new Actions(Driver.getDriver());
+        actions.moveToElement(element).perform();
+
+    }
+    /**
+     * Scrolls down to an element using Javascript
+     * @param element
+     * @author SB
+     */
+
+    public static void scrollToElement(WebElement element) {
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+
+    }
+    /**
+     * click on element using Javascript
+     * @param element
+     * @author SB
+     */
+
+    public static void clickWithJS(WebElement element){
+        try {
+            new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(DocuportConstants.LARGE));
+            ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+            ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", element);
+        } catch (StaleElementReferenceException se) {
+            ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", element);
+        }
+    }
+
+    /**
+     * performs double click action
+     * @param element
+     * @author SB
+     */
+
+    public static void doubleClick(WebElement element) {
+        new Actions(Driver.getDriver()).doubleClick().perform();
+
+    }
+
+
+    /**
+     * performs a pause
+     * @param milliSeconds
+     * @author SB
+     */
+
+    public static void justWait(int milliSeconds) {
+        try {
+            Thread.sleep(milliSeconds);
+        } catch (InterruptedException i) {
+            i.printStackTrace();
+
+        }
+    }
+
+    public static java.util.List<String> getElementText(java.util.List<WebElement> elements) {
+        java.util.List<String> elementText = new ArrayList<>();
+        for (WebElement element : elements) {
+            elementText.add(element.getText());
+
+        }
+        return elementText;
+    }
+
+    public static java.util.List<String> getElementTextWithString(java.util.List<WebElement> elements) {
+        return elements.stream()
+                .map(x->x.getText())
+                .collect(Collectors.toList());
+    }
+    public static java.util.List<String> getElementTextWithString2(List<WebElement> elements) {
+        return elements.stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
 }

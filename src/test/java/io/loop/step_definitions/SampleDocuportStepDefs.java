@@ -63,7 +63,7 @@ public class SampleDocuportStepDefs {
 //        WebElement element = Driver.getDriver().findElement(By.xpath("//input[@type='file']"));
 //        element.sendKeys("C:\\Users\\Shelby\\Desktop\\text.txt.txt");
 
-        BrowserUtils.uploadFileForWindows("\"C:\\Users\\Shelby\\.bash_history\"");
+        BrowserUtils.uploadFileForWindows("\"C:\\Users\\abuza\\OneDrive\\Desktop\\text.txt.txt\"");
 
 
 

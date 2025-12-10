@@ -1,11 +1,15 @@
-@B5G2-95
-Feature: demo how to upload json report to xray
+Feature: Practice soft assertions
 
-
-  @xray @B5G2-124 @B5G2-132
-  Scenario: Login as a client
+  @soft
+  Scenario: Soft assertions practice
     Given user is on Docuport login page
-    When user enters username for client
-    Then user enters password for client
-    And user clicks login button
-    Then user should be able to see the home page for client
+    Then user validates "Login" text is displayed
+    Then user validates "Docuport" text is displayed
+    When user inserts "b1g1_client@gmail.com" to "username" field on "Login" page
+    When user inserts "Group1" to "password" field on "Login" page
+    And user clicks "login" button on "Login" page
+    And user validates "Choose account" text is displayed
+    And user clicks "continue" button on "Choose account" page
+    And user clicks "home" button on "Left navigate" page
+    And user clicks "invitations" button on "Left Navigate" page
+    And user validates all assertions
