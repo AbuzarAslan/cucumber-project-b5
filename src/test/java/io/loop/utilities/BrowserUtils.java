@@ -98,6 +98,7 @@ public class BrowserUtils {
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
 
+
     /**
      * waits for the provided element to be clickable
      *
@@ -109,6 +110,15 @@ public class BrowserUtils {
     public static WebElement waitForClickable(WebElement element, int timeout) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+    public static WebElement waitForClickable2(WebElement element, int timeout){
+        try {
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
+            return wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (StaleElementReferenceException se){
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
+            return wait.until(ExpectedConditions.elementToBeClickable(element));
+        }
     }
 
     /**
@@ -196,7 +206,6 @@ public class BrowserUtils {
         robot.keyRelease(KeyEvent.VK_ENTER);
 
     }
-
     public static void uploadFileUsingAppleScript(String filePath) throws Exception {
         String script = "tell application \"System Events\"\n"
                 + "delay 1\n"
@@ -277,8 +286,8 @@ public class BrowserUtils {
         }
     }
 
-    public static java.util.List<String> getElementText(java.util.List<WebElement> elements) {
-        java.util.List<String> elementText = new ArrayList<>();
+    public static List<String> getElementText(List<WebElement> elements) {
+        List<String> elementText = new ArrayList<>();
         for (WebElement element : elements) {
             elementText.add(element.getText());
 
@@ -286,12 +295,12 @@ public class BrowserUtils {
         return elementText;
     }
 
-    public static java.util.List<String> getElementTextWithString(java.util.List<WebElement> elements) {
+    public static List<String> getElementTextWithString(List<WebElement> elements) {
         return elements.stream()
                 .map(x->x.getText())
                 .collect(Collectors.toList());
     }
-    public static java.util.List<String> getElementTextWithString2(List<WebElement> elements) {
+    public static List<String> getElementTextWithString2(List<WebElement> elements) {
         return elements.stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
